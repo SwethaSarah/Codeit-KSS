@@ -1,0 +1,57 @@
+Question : 
+
+Reverse a stack without using extra space in O(n)
+Reverse a Stack without using recursion and extra space. Even the functional Stack is not allowed.
+Examples:
+Input : 1->2->3->4
+Output : 4->3->2->1
+Input :  6->5->4
+Output : 4->5->6
+
+--------------------------------------------------------------------------------------------------------
+
+Solution :
+
+class node:
+  def __init__(self,n):
+    self.data = n
+    self.next = None
+
+class stackAsLL:
+  def __init__(self):
+    self.last = None
+    self.root = None
+  
+  def insert(self,n):
+    if self.root == None:
+      self.root = node(n)
+      self.last = self.root
+    else:
+      temp = node(n)
+      self.last.next = temp
+      self.last = temp
+
+  def reverse(self):
+    curr = self.root
+    preptr = None
+    while curr!=None:
+      nextptr = curr.next
+      curr.next = preptr
+      preptr = curr
+      curr= nextptr 
+    self.root = preptr 
+
+
+  def printll(self):
+    temp = self.root
+    while(temp.next!=None):
+      print(temp.data,end='->')
+      temp=temp.next
+    print(temp.data)
+  
+obj = stackAsLL()
+arr = list(map(int,input().split('->')))
+for i in arr:
+  obj.insert(i)
+obj.reverse()
+obj.printll()
